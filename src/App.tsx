@@ -1,8 +1,8 @@
 import { Button } from "@mui/material";
 import ChartView from "./components/ChartView";
-import ParameterController from "./components/ParameterController";
+import ParameterController from "./components/ParameterController/ParameterController";
 import TableView from "./components/TableView";
-import ViewSelector from "./components/ViewSelector";
+import ViewSelector from "./components/ViewSelector/ViewSelector";
 import "./App.css";
 
 function App() {
