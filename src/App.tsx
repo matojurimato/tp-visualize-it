@@ -1,15 +1,20 @@
+import { Button } from "@mui/material";
 import ChartView from "./components/ChartView";
 import ParameterController from "./components/ParameterController";
 import TableView from "./components/TableView";
 import ViewSelector from "./components/ViewSelector";
+import "./App.css";
 
 function App() {
   return (
     <>
+      <Button variant="contained">+</Button>
       <ParameterController />
-      <ViewSelector />
-      <ChartView />
-      <TableView />
+      <div className="content-container">
+        <ViewSelector />
+        <ChartView />
+        <TableView />
+      </div>
     </>
   );
 }
