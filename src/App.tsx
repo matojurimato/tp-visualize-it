@@ -13,55 +13,40 @@ import {
 import { useRecoilValue } from "recoil";
 import { TPointMonth, TPointYear } from "./models/types";
 import { useEffect, useState } from "react";
+import useFetch from "./services/useFetch";
+import { BASE_URL } from "./models/constants";
 
 function App() {
   const [fetchedMonthData, setFetchedMonthData] = useState<TPointMonth[]>([]);
   const [fetchedYearData, setFetchedYearData] = useState<TPointYear[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [url, setUrl] = useState<string>(
+    "https://taneo-climate-api.herokuapp.com/v1/country/mavg/tas/2020/2039/HRV",
+  );
+
+  const { data, loading, error } = useFetch(url);
 
   const selectedPage = useRecoilValue(selectedPageState);
   const selectedCountry = useRecoilValue(selectedCountryState);
   const selectedPeriod = useRecoilValue(selectedPeriodState);
   const selectedType = useRecoilValue(selectedTypeState);
 
-  const requestUrl = (iso = selectedCountry.isoCode) => {
-    const baseUrl = "https://taneo-climate-api.herokuapp.com/v1/country/";
-    return (
-      baseUrl +
-      `${selectedPage}/${selectedType}/${selectedPeriod.fromYear}/${selectedPeriod.toYear}/${iso}`
-    );
-  };
-
-  const customFetch = () => {
-    let requestUrlll = requestUrl();
-    setIsLoading(true);
-    fetch(requestUrlll)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setIsLoading(false);
-        if (selectedPage === "mavg") {
-          setFetchedMonthData(data);
-        } else {
-          setFetchedYearData(data);
-        }
-      });
-  };
-
   useEffect(() => {
-    customFetch();
+    setUrl(
+      BASE_URL +
+        `${selectedPage}/${selectedType}/${selectedPeriod.fromYear}/
+        ${selectedPeriod.toYear}/${selectedCountry.isoCode}`,
+    );
   }, [selectedPage, selectedCountry, selectedPeriod, selectedType]);
 
   return (
     <>
-      {" "}
-      {isLoading && <p>LOADING...</p>}
+      {error && <p>ERROR</p>}
+      {loading && <p>LOADING...</p>}
       <Button variant="contained">+</Button>
       <ParameterController />
       <div className="content-container">
         <ViewSelector />
-        {{ mavg: <TableView />, annualavg: <ChartView /> }[selectedPage]}
+        {selectedPage === "mavg" ? <TableView /> : <ChartView />}
       </div>
     </>
   );

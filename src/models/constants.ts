@@ -1,5 +1,8 @@
 import { TAvailableCountries, TAvailablePeriods } from "./types";
 
+export const BASE_URL: string =
+  "https://taneo-climate-api.herokuapp.com/v1/country/";
+
 export const AVAILABLE_COUNTRIES: TAvailableCountries[] = [
   { isoCode: "HRV", name: "Croatia" },
   { isoCode: "SVN", name: "Slovenia" },
