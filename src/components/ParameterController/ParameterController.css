@@ -8,5 +8,5 @@
 
 .dropdown-select {
   width: 200px;
-  margin: 24px;
+  margin: 24px !important;
 }

@@ -1,25 +1,25 @@
 export type TPoint = {
-  gcm: String;
-  variable: String;
-  fromYear: Number;
-  toYear: Number;
-  country?: String;
+  gcm: string;
+  variable: string;
+  fromYear: number;
+  toYear: number;
+  country?: string;
 };
 
 export type TPointMonth = TPoint & {
-  monthVals: Number[];
+  monthVals: number[];
 };
 
 export type TPointYear = TPoint & {
-  annualData: Number[];
+  annualData: number[];
 };
 
 export type TAvailableCountries = {
-  isoCode: String;
-  name: String;
+  isoCode: string;
+  name: string;
 };
 
 export type TAvailablePeriods = {
-  fromYear: Number;
-  toYear: Number;
+  fromYear: number;
+  toYear: number;
 };
