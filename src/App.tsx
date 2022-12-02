@@ -33,7 +33,7 @@ function App() {
   useEffect(() => {
     setUrl(
       BASE_URL +
-        `${selectedPage}/${selectedType}/${selectedPeriod.fromYear}/
+        `${selectedPage}/${selectedType.apiAbbreviation}/${selectedPeriod.fromYear}/
         ${selectedPeriod.toYear}/${selectedCountry.isoCode}`,
     );
   }, [selectedPage, selectedCountry, selectedPeriod, selectedType]);

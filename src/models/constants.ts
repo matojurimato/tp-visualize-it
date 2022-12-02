@@ -1,4 +1,8 @@
-import { TAvailableCountries, TAvailablePeriods } from "./types";
+import {
+  TAvailableCountries,
+  TAvailablePeriods,
+  TAvailableTypes,
+} from "./types";
 
 export const BASE_URL: string =
   "https://taneo-climate-api.herokuapp.com/v1/country/";
@@ -18,6 +22,11 @@ export const AVAILABLE_PERIODS: TAvailablePeriods[] = [
   { fromYear: 2040, toYear: 2059 },
   { fromYear: 2060, toYear: 2079 },
   { fromYear: 2080, toYear: 2099 },
+];
+
+export const AVAILABLE_TYPES: TAvailableTypes[] = [
+  { apiAbbreviation: "tas", name: "Temperature" },
+  { apiAbbreviation: "pr", name: "Precipitation" },
 ];
 
 export const MONTH_NAMES = [

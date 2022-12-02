@@ -23,3 +23,8 @@ export type TAvailablePeriods = {
   fromYear: number;
   toYear: number;
 };
+
+export type TAvailableTypes = {
+  apiAbbreviation: string;
+  name: string;
+};
