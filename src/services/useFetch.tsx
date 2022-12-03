@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { TPointMonth } from "../models/types";
 
 export default function useFetch(url: string) {
-  const [data, setData] = useState(null);
+  const [fetchedData, setFetchedData] = useState<TPointMonth[]>([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -11,7 +12,7 @@ export default function useFetch(url: string) {
       try {
         setLoading(true);
         const response = await axios.get(url);
-        setData(response.data);
+        setFetchedData(response.data);
       } catch (error: any) {
         setError(error);
       } finally {
@@ -20,5 +21,5 @@ export default function useFetch(url: string) {
     })();
   }, [url]);
 
-  return { data, error, loading };
+  return { fetchedData, error, loading };
 }

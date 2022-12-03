@@ -11,19 +11,16 @@ import {
   selectedTypeState,
 } from "./store/atoms";
 import { useRecoilValue } from "recoil";
-import { TPointMonth, TPointYear } from "./models/types";
 import { useEffect, useState } from "react";
 import useFetch from "./services/useFetch";
 import { BASE_URL } from "./models/constants";
 
 function App() {
-  const [fetchedMonthData, setFetchedMonthData] = useState<TPointMonth[]>([]);
-  const [fetchedYearData, setFetchedYearData] = useState<TPointYear[]>([]);
   const [url, setUrl] = useState<string>(
     "https://taneo-climate-api.herokuapp.com/v1/country/mavg/tas/2020/2039/HRV",
   );
 
-  const { data, loading, error } = useFetch(url);
+  const { fetchedData, loading, error } = useFetch(url);
 
   const selectedPage = useRecoilValue(selectedPageState);
   const selectedCountry = useRecoilValue(selectedCountryState);
@@ -46,7 +43,11 @@ function App() {
       <ParameterController />
       <div className="content-container">
         <ViewSelector />
-        {selectedPage === "mavg" ? <TableView /> : <ChartView />}
+        {selectedPage === "mavg" ? (
+          <TableView data={fetchedData} />
+        ) : (
+          <ChartView />
+        )}
       </div>
     </>
   );
