@@ -3,15 +3,8 @@ export type TPoint = {
   variable: string;
   fromYear: number;
   toYear: number;
-  country?: string;
-};
-
-export type TPointMonth = TPoint & {
-  monthVals: number[];
-};
-
-export type TPointYear = TPoint & {
-  annualData: number[];
+  monthVals?: number[];
+  annualData?: number[];
 };
 
 export type TAvailableCountries = {

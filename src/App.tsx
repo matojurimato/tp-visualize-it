@@ -46,7 +46,7 @@ function App() {
         {selectedPage === "mavg" ? (
           <TableView data={fetchedData} />
         ) : (
-          <ChartView />
+          <ChartView data={fetchedData} />
         )}
       </div>
     </>

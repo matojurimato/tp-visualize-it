@@ -6,9 +6,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { MONTH_NAMES } from "../../models/constants";
-import { TPointMonth } from "../../models/types";
+import { TPoint } from "../../models/types";
 
-const TableView: React.FC<{ data: TPointMonth[] }> = (props) => {
+const TableView: React.FC<{ data: TPoint[] }> = (props) => {
   var sequenceOneToTwelve = Array.from(Array(12).keys());
 
   if (props.data.length && props.data[0].hasOwnProperty("monthVals")) {
@@ -30,7 +30,7 @@ const TableView: React.FC<{ data: TPointMonth[] }> = (props) => {
                 {sequenceOneToTwelve.map((iterator) => {
                   return (
                     <TableCell key={iterator}>
-                      {point.monthVals[iterator]}
+                      {point.monthVals && point.monthVals[iterator]}
                     </TableCell>
                   );
                 })}

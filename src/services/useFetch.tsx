@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { TPointMonth } from "../models/types";
+import { TPoint } from "../models/types";
 
 export default function useFetch(url: string) {
-  const [fetchedData, setFetchedData] = useState<TPointMonth[]>([]);
+  const [fetchedData, setFetchedData] = useState<TPoint[]>([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
