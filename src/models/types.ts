@@ -10,6 +10,7 @@ export type TPoint = {
 export type TAvailableCountries = {
   isoCode: string;
   name: string;
+  formedYugoslavia?: boolean;
 };
 
 export type TAvailablePeriods = {

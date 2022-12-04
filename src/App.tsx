@@ -16,22 +16,19 @@ import useFetch from "./services/useFetch";
 import { BASE_URL } from "./models/constants";
 
 function App() {
-  const [url, setUrl] = useState<string>(
-    "https://taneo-climate-api.herokuapp.com/v1/country/mavg/tas/2020/2039/HRV",
-  );
-
-  const { fetchedData, loading, error } = useFetch(url);
+  const [url, setUrl] = useState<string>("");
 
   const selectedPage = useRecoilValue(selectedPageState);
   const selectedCountry = useRecoilValue(selectedCountryState);
   const selectedPeriod = useRecoilValue(selectedPeriodState);
   const selectedType = useRecoilValue(selectedTypeState);
 
+  const { fetchedData, loading, error } = useFetch(url, selectedPage);
+
   useEffect(() => {
     setUrl(
       BASE_URL +
-        `${selectedPage}/${selectedType.apiAbbreviation}/${selectedPeriod.fromYear}/
-        ${selectedPeriod.toYear}/${selectedCountry.isoCode}`,
+        `${selectedPage}/${selectedType.apiAbbreviation}/${selectedPeriod.fromYear}/${selectedPeriod.toYear}/${selectedCountry.isoCode}`,
     );
   }, [selectedPage, selectedCountry, selectedPeriod, selectedType]);
 

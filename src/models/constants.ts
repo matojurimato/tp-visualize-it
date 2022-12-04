@@ -7,13 +7,15 @@ import {
 export const BASE_URL: string =
   "https://taneo-climate-api.herokuapp.com/v1/country/";
 
+// Yugoslavia is an exception - its isoCode does not exist,
+// and custom fetching logic is implemented for it
 export const AVAILABLE_COUNTRIES: TAvailableCountries[] = [
-  { isoCode: "HRV", name: "Croatia" },
-  { isoCode: "SVN", name: "Slovenia" },
-  { isoCode: "SRB", name: "Serbia" },
-  { isoCode: "BIH", name: "Bosnia & Herzegovina" },
-  { isoCode: "MNE", name: "Montenegro" },
-  { isoCode: "MKD", name: "Macedonia" },
+  { isoCode: "HRV", name: "Croatia", formedYugoslavia: true },
+  { isoCode: "SVN", name: "Slovenia", formedYugoslavia: true },
+  { isoCode: "SRB", name: "Serbia", formedYugoslavia: true },
+  { isoCode: "BIH", name: "Bosnia & Herzegovina", formedYugoslavia: true },
+  { isoCode: "MNE", name: "Montenegro", formedYugoslavia: true },
+  { isoCode: "MKD", name: "Macedonia", formedYugoslavia: true },
   { isoCode: "YU", name: "Yugoslavia" },
 ];
 
