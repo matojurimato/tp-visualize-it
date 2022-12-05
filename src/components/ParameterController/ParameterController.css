@@ -1,9 +1,17 @@
-.select-container {
-  min-width: 250px;
-  max-width: 750px;
-}
-
 .dropdown-select {
   width: 200px;
   margin: 20px !important;
+}
+
+@media screen and (max-width: 1250px) {
+  .dropdown-select {
+    width: 160px;
+  }
+}
+
+@media screen and (max-width: 880px) {
+  .parameters-card {
+    display: flex;
+    flex-direction: column;
+  }
 }

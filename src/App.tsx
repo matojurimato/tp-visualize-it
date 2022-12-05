@@ -43,17 +43,19 @@ function App() {
       </div>
       <div className="main-content">
         <div className="controls-container">
-          <ParameterController />
-          <Button variant="contained" className="controls-button">
-            Add new point
-          </Button>
+          <div className="parameter-controllers">
+            <ParameterController />
+          </div>
+          <div className="new-point-button">
+            <Button variant="contained">Add new point</Button>
+          </div>
         </div>
         <div className="content-container">
           <ViewSelector />
-          <div className="data-card-container">
+          <div className="data-card">
             <Card>
               {loading && (
-                <div className="loading-container">
+                <div className="loading">
                   <CircularProgress />
                 </div>
               )}

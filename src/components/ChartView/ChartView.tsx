@@ -10,7 +10,6 @@ import {
 } from "recharts";
 import { useRecoilValue } from "recoil";
 import { selectedTypeState } from "../../store/atoms";
-import "./ChartView.css";
 
 const TableView: React.FC<{ data: TPoint[] }> = (props) => {
   const selectedType = useRecoilValue(selectedTypeState);
