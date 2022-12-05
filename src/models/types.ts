@@ -5,6 +5,7 @@ export type TPoint = {
   toYear: number;
   monthVals?: number[];
   annualData?: number[];
+  countryIso?: string;
 };
 
 export type TAvailableCountries = {

@@ -6,6 +6,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { MONTH_NAMES } from "../../models/constants";
 import { TPoint } from "../../models/types";
+import FilterPointsByParameters from "../../services/FilterPointsByParameters";
 import {
   StyledBoxOverflow,
   StyledBoxTable,
@@ -14,10 +15,18 @@ import {
 } from "./TableStyle";
 import "./TableView.css";
 
-const TableView: React.FC<{ data: TPoint[] }> = (props) => {
-  var sequenceOneToTwelve = Array.from(Array(12).keys());
+const TableView: React.FC<{
+  fetchedData: TPoint[];
+  manualMonthEntries: TPoint[];
+}> = (props) => {
+  const filteredManualData = FilterPointsByParameters(props.manualMonthEntries);
 
-  if (props.data.length && props.data[0].hasOwnProperty("monthVals")) {
+  const fetchedAndManualData = [...props.fetchedData, ...filteredManualData];
+
+  if (
+    props.fetchedData.length &&
+    props.fetchedData[0].hasOwnProperty("monthVals")
+  ) {
     return (
       <div className="table-container">
         <StyledBoxOverflow>
@@ -35,15 +44,11 @@ const TableView: React.FC<{ data: TPoint[] }> = (props) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {props.data.map((point, index) => (
+                  {fetchedAndManualData.map((point, index) => (
                     <StyledTableRow key={index}>
                       <TableCell>{point.gcm}</TableCell>
-                      {sequenceOneToTwelve.map((iterator) => {
-                        return (
-                          <TableCell key={iterator}>
-                            {point.monthVals && point.monthVals[iterator]}
-                          </TableCell>
-                        );
+                      {point.monthVals!.map((value, index) => {
+                        return <TableCell key={index}>{value}</TableCell>;
                       })}
                     </StyledTableRow>
                   ))}

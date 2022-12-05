@@ -1,0 +1,13 @@
+.annual-avg-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.anual-avg-row {
+  display: flex;
+  align-items: center;
+}
+.anual-avg-row > label {
+  margin-right: 10px;
+}

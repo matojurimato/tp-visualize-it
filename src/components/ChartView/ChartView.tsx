@@ -10,21 +10,31 @@ import {
 } from "recharts";
 import { useRecoilValue } from "recoil";
 import { selectedTypeState } from "../../store/atoms";
+import FilterPointsByParameters from "../../services/FilterPointsByParameters";
 
-const TableView: React.FC<{ data: TPoint[] }> = (props) => {
+const ChartView: React.FC<{
+  fetchedData: TPoint[];
+  manualYearEntries: TPoint[];
+}> = (props) => {
   const selectedType = useRecoilValue(selectedTypeState);
+
+  const filteredYearData = FilterPointsByParameters(props.manualYearEntries);
+  const fetchedAndManualData = [...props.fetchedData, ...filteredYearData];
 
   const yAxisAndValueName =
     selectedType.apiAbbreviation === "tas"
       ? "Temperature [\u00B0C]"
       : "Precipitation [mm]";
 
-  if (props.data.length && props.data[0].hasOwnProperty("annualData")) {
+  if (
+    fetchedAndManualData.length &&
+    fetchedAndManualData[0].hasOwnProperty("annualData")
+  ) {
     return (
       <div className="chart-container">
         <ResponsiveContainer width="90%" height={585}>
           <BarChart
-            data={props.data}
+            data={fetchedAndManualData}
             stackOffset={"sign"}
             margin={{ top: 50, bottom: 110, left: 60 }}
           >
@@ -63,4 +73,4 @@ const TableView: React.FC<{ data: TPoint[] }> = (props) => {
   }
 };
 
-export default TableView;
+export default ChartView;

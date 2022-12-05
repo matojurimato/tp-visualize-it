@@ -16,9 +16,13 @@ import useFetch from "./services/useFetch";
 import { BASE_URL } from "./models/constants";
 import CircularProgress from "@mui/material/CircularProgress";
 import Card from "@mui/material/Card";
+import NewPointModal from "./components/modal/NewPointModal";
+import { TPoint } from "./models/types";
 
 function App() {
   const [url, setUrl] = useState<string>("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const handleOpen = () => setModalOpen(true);
 
   const selectedPage = useRecoilValue(selectedPageState);
   const selectedCountry = useRecoilValue(selectedCountryState);
@@ -26,6 +30,8 @@ function App() {
   const selectedType = useRecoilValue(selectedTypeState);
 
   const { fetchedData, loading } = useFetch(url, selectedPage);
+  const [manualMonthEntries, setManualMonthEntries] = useState<TPoint[]>([]);
+  const [manualYearEntries, setManualYearEntries] = useState<TPoint[]>([]);
 
   useEffect(() => {
     setUrl(
@@ -35,40 +41,58 @@ function App() {
   }, [selectedPage, selectedCountry, selectedPeriod, selectedType]);
 
   return (
-    <div className="main">
-      <div className="header">
-        <div className="header-logo-container">
-          <p className="logo">visualize-it</p>
+    <>
+      <NewPointModal
+        manualMonthEntries={manualMonthEntries}
+        setManualMonthEntries={setManualMonthEntries}
+        manualYearEntries={manualYearEntries}
+        setManualYearEntries={setManualYearEntries}
+        modalOpen={modalOpen}
+        setModalOpen={setModalOpen}
+      />
+      <div className="main">
+        <div className="header">
+          <div className="header-logo-container">
+            <p className="logo">visualize-it</p>
+          </div>
+        </div>
+        <div className="main-content">
+          <div className="controls-container">
+            <div className="parameter-controllers">
+              <ParameterController />
+            </div>
+            <div className="new-point-button">
+              <Button variant="contained" onClick={handleOpen}>
+                Add new point
+              </Button>
+            </div>
+          </div>
+          <div className="content-container">
+            <ViewSelector />
+            <div className="data-card">
+              <Card>
+                {loading && (
+                  <div className="loading">
+                    <CircularProgress />
+                  </div>
+                )}
+                {selectedPage === "mavg" ? (
+                  <TableView
+                    fetchedData={fetchedData}
+                    manualMonthEntries={manualMonthEntries}
+                  />
+                ) : (
+                  <ChartView
+                    fetchedData={fetchedData}
+                    manualYearEntries={manualYearEntries}
+                  />
+                )}
+              </Card>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="main-content">
-        <div className="controls-container">
-          <div className="parameter-controllers">
-            <ParameterController />
-          </div>
-          <div className="new-point-button">
-            <Button variant="contained">Add new point</Button>
-          </div>
-        </div>
-        <div className="content-container">
-          <ViewSelector />
-          <div className="data-card">
-            <Card>
-              {loading && (
-                <div className="loading">
-                  <CircularProgress />
-                </div>
-              )}
-              {selectedPage === "mavg" ? (
-                <TableView data={fetchedData} />
-              ) : (
-                <ChartView data={fetchedData} />
-              )}
-            </Card>
-          </div>
-        </div>
-      </div>
-    </div>
+    </>
   );
 }
 
