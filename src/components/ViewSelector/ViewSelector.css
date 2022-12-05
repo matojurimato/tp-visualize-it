@@ -1,9 +1,10 @@
 .vertical-tabs-container {
+  margin-top: 5px;
   display: flex;
-  width: 40px;
+  width: 50px;
 }
 
 .vertical-tab {
   height: 100px;
-  margin-left: -25px !important;
+  margin-left: -20px !important;
 }

@@ -1,12 +1,9 @@
 .select-container {
   min-width: 250px;
   max-width: 750px;
-  border: 1px solid;
-  border-radius: 4px;
-  margin: 10px;
 }
 
 .dropdown-select {
   width: 200px;
-  margin: 24px !important;
+  margin: 20px !important;
 }

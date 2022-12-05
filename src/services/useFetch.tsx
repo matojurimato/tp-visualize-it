@@ -6,7 +6,6 @@ import { AVAILABLE_COUNTRIES } from "../models/constants";
 
 const useFetch = (url: string, selectedPage: string) => {
   const [fetchedData, setFetchedData] = useState<TPoint[]>([]);
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -27,7 +26,7 @@ const useFetch = (url: string, selectedPage: string) => {
         const response = await axios.get(url);
         setFetchedData(response.data);
       } catch (error: any) {
-        setError(error);
+        console.error(error);
       } finally {
         setLoading(false);
       }
@@ -62,14 +61,14 @@ const useFetch = (url: string, selectedPage: string) => {
         axios.get(requestUrls[5]).then((r) => r.data),
       ]);
       setFetchedData(AveragePoints(dataFromAllResponses, selectedPage));
-    } catch (error: any) {
-      setError(error);
+    } catch (error) {
+      console.error(error);
     } finally {
       setLoading(false);
     }
   };
 
-  return { fetchedData, error, loading };
+  return { fetchedData, loading };
 };
 
 export default useFetch;

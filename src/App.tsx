@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
-import ChartView from "./components/ChartView";
+import ChartView from "./components/ChartView/ChartView";
 import ParameterController from "./components/ParameterController/ParameterController";
-import TableView from "./components/TableView";
+import TableView from "./components/TableView/TableView";
 import ViewSelector from "./components/ViewSelector/ViewSelector";
 import "./App.css";
 import {
@@ -14,6 +14,8 @@ import { useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
 import useFetch from "./services/useFetch";
 import { BASE_URL } from "./models/constants";
+import CircularProgress from "@mui/material/CircularProgress";
+import Card from "@mui/material/Card";
 
 function App() {
   const [url, setUrl] = useState<string>("");
@@ -23,7 +25,7 @@ function App() {
   const selectedPeriod = useRecoilValue(selectedPeriodState);
   const selectedType = useRecoilValue(selectedTypeState);
 
-  const { fetchedData, loading, error } = useFetch(url, selectedPage);
+  const { fetchedData, loading } = useFetch(url, selectedPage);
 
   useEffect(() => {
     setUrl(
@@ -33,20 +35,38 @@ function App() {
   }, [selectedPage, selectedCountry, selectedPeriod, selectedType]);
 
   return (
-    <>
-      {error && <p>ERROR</p>}
-      {loading && <p>LOADING...</p>}
-      <Button variant="contained">+</Button>
-      <ParameterController />
-      <div className="content-container">
-        <ViewSelector />
-        {selectedPage === "mavg" ? (
-          <TableView data={fetchedData} />
-        ) : (
-          <ChartView data={fetchedData} />
-        )}
+    <div className="main">
+      <div className="header">
+        <div className="header-logo-container">
+          <p className="logo">visualize-it</p>
+        </div>
       </div>
-    </>
+      <div className="main-content">
+        <div className="controls-container">
+          <ParameterController />
+          <Button variant="contained" className="controls-button">
+            Add new point
+          </Button>
+        </div>
+        <div className="content-container">
+          <ViewSelector />
+          <div className="data-card-container">
+            <Card>
+              {loading && (
+                <div className="loading-container">
+                  <CircularProgress />
+                </div>
+              )}
+              {selectedPage === "mavg" ? (
+                <TableView data={fetchedData} />
+              ) : (
+                <ChartView data={fetchedData} />
+              )}
+            </Card>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
