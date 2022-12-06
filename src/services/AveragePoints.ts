@@ -30,12 +30,19 @@ const AveragePoints = (points: TPoint[][], selectedPage: string) => {
       let monthOrYearValues: number[] = [];
       for (let country = 0; country < points.length; country++) {
         switch (isMonthViewSelected) {
-          // TODO - monthVals and annualData can be undefined
           case true:
-            monthOrYearValues.push(points[country][gcm].monthVals![dataArray]);
+            if (points[country][gcm].hasOwnProperty("monthVals")) {
+              monthOrYearValues.push(
+                points[country][gcm].monthVals![dataArray],
+              );
+            }
             break;
           default:
-            monthOrYearValues.push(points[country][gcm].annualData![dataArray]);
+            if (points[country][gcm].hasOwnProperty("annualData")) {
+              monthOrYearValues.push(
+                points[country][gcm].annualData![dataArray],
+              );
+            }
         }
       }
 
