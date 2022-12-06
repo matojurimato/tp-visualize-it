@@ -10,7 +10,7 @@ import {
   selectedPeriodState,
   selectedTypeState,
 } from "./store/atoms";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
 import useFetch from "./services/useFetch";
 import { BASE_URL } from "./models/constants";
@@ -19,12 +19,12 @@ import Card from "@mui/material/Card";
 import NewPointModal from "./components/modal/NewPointModal";
 import { TPoint } from "./models/types";
 
-const App: React.FC<{ routerPath: string }> = (props) => {
+const App = () => {
   const [url, setUrl] = useState<string>("");
   const [modalOpen, setModalOpen] = useState(false);
   const handleOpen = () => setModalOpen(true);
 
-  const [selectedPage, setSelectedPage] = useRecoilState(selectedPageState);
+  const selectedPage = useRecoilValue(selectedPageState);
   const selectedCountry = useRecoilValue(selectedCountryState);
   const selectedPeriod = useRecoilValue(selectedPeriodState);
   const selectedType = useRecoilValue(selectedTypeState);
@@ -32,14 +32,6 @@ const App: React.FC<{ routerPath: string }> = (props) => {
   const { fetchedData, loading } = useFetch(url, selectedPage);
   const [manualMonthEntries, setManualMonthEntries] = useState<TPoint[]>([]);
   const [manualYearEntries, setManualYearEntries] = useState<TPoint[]>([]);
-
-  switch (props.routerPath) {
-    case "table":
-      setSelectedPage("mavg");
-      break;
-    case "chart":
-      setSelectedPage("annualavg");
-  }
 
   useEffect(() => {
     setUrl(

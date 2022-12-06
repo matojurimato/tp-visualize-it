@@ -3,19 +3,17 @@ import Tabs from "@mui/material/Tabs";
 import TableRowsRoundedIcon from "@mui/icons-material/TableRowsRounded";
 import EqualizerRoundedIcon from "@mui/icons-material/EqualizerRounded";
 import "./ViewSelector.css";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { selectedPageState } from "../../store/atoms";
-import { useNavigate } from "react-router-dom";
 
 const ViewSelector = () => {
-  const selectedPage = useRecoilValue(selectedPageState);
-  const navigate = useNavigate();
+  const [selectedPage, setSelectedPage] = useRecoilState(selectedPageState);
 
   const handleChangePage = (
     event: React.SyntheticEvent,
     newSelectedPage: string,
   ) => {
-    navigate(newSelectedPage === "mavg" ? "/table" : "/chart");
+    setSelectedPage(newSelectedPage);
   };
 
   return (
