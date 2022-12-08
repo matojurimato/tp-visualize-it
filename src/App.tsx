@@ -16,7 +16,7 @@ import useFetch from "./services/useFetch";
 import { BASE_URL } from "./models/constants";
 import CircularProgress from "@mui/material/CircularProgress";
 import Card from "@mui/material/Card";
-import NewPointModal from "./components/modal/NewPointModal";
+import NewPointModal from "./components/NewPointModal/NewPointModal";
 import { TPoint } from "./models/types";
 
 const App = () => {

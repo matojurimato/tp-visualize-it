@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Backdrop, Box, Modal, Fade, Button } from "@mui/material";
+import { Backdrop, Box, Modal, Fade } from "@mui/material";
 import FormsMonth from "./FormsMonth";
 import FormsYear from "./FormsYear";
 import { useRecoilValue } from "recoil";
@@ -11,6 +10,7 @@ import {
   selectedPeriodState,
   selectedTypeState,
 } from "../../store/atoms";
+import RoundByTwoDecimals from "../../services/RoundByTwoDecimals";
 
 const NewPointModal: React.FC<{
   manualMonthEntries: TPoint[];
@@ -24,38 +24,35 @@ const NewPointModal: React.FC<{
   const selectedCountry = useRecoilValue(selectedCountryState);
   const selectedPeriod = useRecoilValue(selectedPeriodState);
   const selectedType = useRecoilValue(selectedTypeState);
-  const [modalGcmName, setModalGcmName] = useState("");
-  const [monthVals, setMonthVals] = useState<number[]>([]);
-  const [yearVal, setYearVal] = useState<number[]>([]);
 
   const handleClose = () => props.setModalOpen(false);
 
   let isMonthViewSelected = selectedPage === "mavg";
 
-  const handleSubmitButton = () => {
+  const handleSubmitButton = (gcmName: string, manualValues: number[]) => {
+    const manualRoundedValues = RoundByTwoDecimals(manualValues);
     if (isMonthViewSelected) {
       let result: TPoint = {
-        gcm: modalGcmName,
+        gcm: gcmName,
         fromYear: selectedPeriod.fromYear,
         toYear: selectedPeriod.toYear,
         variable: selectedType.apiAbbreviation,
         countryIso: selectedCountry.isoCode,
-        monthVals: monthVals,
+        monthVals: manualRoundedValues,
       };
       props.setManualMonthEntries([...props.manualMonthEntries, result]);
     } else {
       let result: TPoint = {
-        gcm: modalGcmName,
+        gcm: gcmName,
         fromYear: selectedPeriod.fromYear,
         toYear: selectedPeriod.toYear,
         variable: selectedType.apiAbbreviation,
         countryIso: selectedCountry.isoCode,
-        annualData: yearVal,
+        annualData: manualRoundedValues,
       };
       props.setManualYearEntries([...props.manualYearEntries, result]);
     }
     handleClose();
-    setModalGcmName("");
   };
 
   const boxStyle = {
@@ -87,23 +84,10 @@ const NewPointModal: React.FC<{
           <Box sx={boxStyle}>
             <div className="container">
               {isMonthViewSelected ? (
-                <FormsMonth
-                  setModalGcmName={setModalGcmName}
-                  setMonthVals={setMonthVals}
-                />
+                <FormsMonth handleSubmitButton={handleSubmitButton} />
               ) : (
-                <FormsYear
-                  setModalGcmName={setModalGcmName}
-                  setYearVal={setYearVal}
-                />
+                <FormsYear handleSubmitButton={handleSubmitButton} />
               )}
-              <div className="button-container">
-                <div className="submit-button">
-                  <Button onClick={handleSubmitButton} variant="contained">
-                    + Add
-                  </Button>
-                </div>
-              </div>
             </div>
           </Box>
         </Fade>
