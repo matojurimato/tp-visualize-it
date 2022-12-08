@@ -75,10 +75,7 @@ const NewPointModal: React.FC<{
         open={props.modalOpen}
         onClose={handleClose}
         closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 300,
-        }}
+        slots={{ backdrop: Backdrop }}
       >
         <Fade in={props.modalOpen}>
           <Box sx={boxStyle}>
