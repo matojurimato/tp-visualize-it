@@ -4,9 +4,12 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import { useRecoilValue } from "recoil";
 import { MONTH_NAMES } from "../../models/constants";
 import { TPoint } from "../../models/types";
 import FilterPointsByParameters from "../../services/FilterPointsByParameters";
+import formatTableValue from "../../services/formatTableValue";
+import { selectedTypeState } from "../../store/atoms";
 import {
   StyledBoxOverflow,
   StyledBoxTable,
@@ -19,8 +22,11 @@ const TableView: React.FC<{
   fetchedData: TPoint[];
   manualMonthEntries: TPoint[];
 }> = (props) => {
-  const filteredManualData = FilterPointsByParameters(props.manualMonthEntries);
+  const selectedType = useRecoilValue(selectedTypeState);
 
+  let isTemperatureSelected = selectedType.apiAbbreviation === "tas";
+
+  const filteredManualData = FilterPointsByParameters(props.manualMonthEntries);
   const fetchedAndManualData = [...props.fetchedData, ...filteredManualData];
 
   if (
@@ -35,10 +41,16 @@ const TableView: React.FC<{
               <Table>
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell>GCM name</StyledTableCell>
+                    <StyledTableCell style={{ width: 130 }}>
+                      GCM name
+                    </StyledTableCell>
                     {MONTH_NAMES.map((month, index) => {
                       return (
-                        <StyledTableCell key={index}>{month}</StyledTableCell>
+                        <StyledTableCell key={index} align="center">
+                          {isTemperatureSelected
+                            ? `${month} [°C]`
+                            : `${month} [mm]`}
+                        </StyledTableCell>
                       );
                     })}
                   </TableRow>
@@ -48,7 +60,11 @@ const TableView: React.FC<{
                     <StyledTableRow key={index}>
                       <TableCell>{point.gcm}</TableCell>
                       {point.monthVals!.map((value, index) => {
-                        return <TableCell key={index}>{value}</TableCell>;
+                        return (
+                          <TableCell align="right" key={index}>
+                            {formatTableValue(value)}
+                          </TableCell>
+                        );
                       })}
                     </StyledTableRow>
                   ))}

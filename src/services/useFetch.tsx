@@ -12,7 +12,7 @@ const useFetch = (url: string, selectedPage: string) => {
   const fetchRetryOptions = {
     retries: 5,
     retryDelay: 1000,
-    retryOn: [500],
+    retryOn: [500, 503],
   };
   const fetch = fetchBuilder(originalFetch, fetchRetryOptions);
 
