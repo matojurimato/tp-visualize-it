@@ -11,6 +11,7 @@ import {
   selectedTypeState,
 } from "../../store/atoms";
 import RoundByTwoDecimals from "../../services/RoundByTwoDecimals";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 const NewPointModal: React.FC<{
   manualMonthEntries: TPoint[];
@@ -55,22 +56,8 @@ const NewPointModal: React.FC<{
     handleClose();
   };
 
-  const boxStyle = {
-    position: "absolute" as "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 800,
-    minWidth: 800,
-    bgcolor: "background.paper",
-    border: "2px solid #0000008b",
-    borderRadius: 3,
-    boxShadow: 15,
-    p: 5,
-  };
-
   return (
-    <div>
+    <div className="modal-container">
       <Modal
         open={props.modalOpen}
         onClose={handleClose}
@@ -78,13 +65,22 @@ const NewPointModal: React.FC<{
         slots={{ backdrop: Backdrop }}
       >
         <Fade in={props.modalOpen}>
-          <Box sx={boxStyle}>
-            <div className="container">
-              {isMonthViewSelected ? (
-                <FormsMonth handleSubmitButton={handleSubmitButton} />
-              ) : (
-                <FormsYear handleSubmitButton={handleSubmitButton} />
-              )}
+          <Box className="modal-box">
+            <div className="forms-container">
+              <div className="manual-values-container">
+                <div className="modal-header">
+                  <div className="modal-header-center">
+                    <div className="close-button-area" onClick={handleClose}>
+                      <CloseRoundedIcon className="close-button" />
+                    </div>
+                  </div>
+                </div>
+                {isMonthViewSelected ? (
+                  <FormsMonth handleSubmitButton={handleSubmitButton} />
+                ) : (
+                  <FormsYear handleSubmitButton={handleSubmitButton} />
+                )}
+              </div>
             </div>
           </Box>
         </Fade>

@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/system/Box";
 import { useState } from "react";
+import "./NewPointModal.css";
 
 const FormsYear: React.FC<{
   handleSubmitButton: (gcmName: string, yearValue: number[]) => void;
@@ -26,17 +27,12 @@ const FormsYear: React.FC<{
     props.handleSubmitButton(gcmName, [yearValue]);
   };
 
-  const customTextFieldStyle = {
-    width: 250,
-    margin: 1,
-  };
-
   return (
-    <div className="annual-avg-container">
-      <form>
-        <Box>
+    <form>
+      <Box className="forms-box">
+        <div className="gcm-name">
           <TextField
-            sx={customTextFieldStyle}
+            className="input-field"
             variant="outlined"
             type="text"
             label="GCM name"
@@ -44,25 +40,25 @@ const FormsYear: React.FC<{
             onChange={changeGcmNameHandler}
             required
           />
-          <TextField
-            sx={customTextFieldStyle}
-            variant="outlined"
-            type="number"
-            label="Year value"
-            value={yearValue}
-            onChange={changeYearValueHandler}
-            required
-          />
-          <div className="button-container">
-            <div className="submit-button">
-              <Button onClick={submitHandler} variant="contained">
-                + Add
-              </Button>
-            </div>
+        </div>
+        <TextField
+          className="input-field"
+          variant="outlined"
+          type="number"
+          label="Year value"
+          value={yearValue}
+          onChange={changeYearValueHandler}
+          required
+        />
+        <div className="button-container">
+          <div className="submit-button">
+            <Button onClick={submitHandler} variant="contained">
+              ADD NEW POINT
+            </Button>
           </div>
-        </Box>
-      </form>
-    </div>
+        </div>
+      </Box>
+    </form>
   );
 };
 
