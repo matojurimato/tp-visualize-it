@@ -2,45 +2,155 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
+import { selectedTypeState } from "../../store/atoms";
 import "./NewPointModal.css";
 
 const FormsMonth: React.FC<{
   handleSubmitButton: (gcmName: string, montValues: number[]) => void;
 }> = (props) => {
-  const [gcmName, setGcmName] = useState<string>("");
+  const [gcmNameValue, setGcmName] = useState<string>("");
+  const [gcmNameError, setGcmError] = useState(false);
   const [monthValues, setMonthValues] = useState({
-    jan: 0,
-    feb: 0,
-    mar: 0,
-    apr: 0,
-    may: 0,
-    jun: 0,
-    jul: 0,
-    aug: 0,
-    sep: 0,
-    oct: 0,
-    nov: 0,
-    dec: 0,
+    jan: "",
+    feb: "",
+    mar: "",
+    apr: "",
+    may: "",
+    jun: "",
+    jul: "",
+    aug: "",
+    sep: "",
+    oct: "",
+    nov: "",
+    dec: "",
+  });
+  const [monthErrors, setMonthErrors] = useState({
+    jan: false,
+    feb: false,
+    mar: false,
+    apr: false,
+    may: false,
+    jun: false,
+    jul: false,
+    aug: false,
+    sep: false,
+    oct: false,
+    nov: false,
+    dec: false,
+  });
+  const [monthErrorMessage, setMonthErrorMessage] = useState({
+    jan: "",
+    feb: "",
+    mar: "",
+    apr: "",
+    may: "",
+    jun: "",
+    jul: "",
+    aug: "",
+    sep: "",
+    oct: "",
+    nov: "",
+    dec: "",
+  });
+  const selectedType = useRecoilValue(selectedTypeState);
+
+  let anyMonthError = false;
+  Object.values(monthErrors).forEach((month) => {
+    anyMonthError = anyMonthError || month;
   });
 
-  const changeGcmNameHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const submitButtonDisabled = gcmNameError || anyMonthError;
+
+  const gcmNameOnChangeHandler = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     event.preventDefault();
-    setGcmName(event.currentTarget.value);
+    setGcmName(event.target.value);
   };
 
-  const changeMonthValueHandler = (
+  const gcmNameOnBlurHandler = (event: React.FocusEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    if (event.target.value.length) {
+      setGcmError(false);
+      setGcmName(event.target.value);
+    } else {
+      setGcmError(true);
+    }
+  };
+
+  const monthValuesOnChangeHandler = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     event.preventDefault();
     setMonthValues({
       ...monthValues,
-      [event.currentTarget.name]: parseFloat(event.currentTarget.value),
+      [event.target.name]: event.target.value,
     });
+  };
+
+  const monthValuesOnBlurHandler = (
+    event: React.FocusEvent<HTMLInputElement>,
+  ) => {
+    event.preventDefault();
+    if (event.target.value.length === 0) {
+      setMonthErrors({
+        ...monthErrors,
+        [event.target.name]: true,
+      });
+      setMonthErrorMessage({
+        ...monthErrorMessage,
+        [event.target.name]: "A value is required",
+      });
+    } else if (
+      selectedType.apiAbbreviation === "pr" &&
+      parseFloat(event.target.value) < 0
+    ) {
+      setMonthErrors({
+        ...monthErrors,
+        [event.target.name]: true,
+      });
+      setMonthErrorMessage({
+        ...monthErrorMessage,
+        [event.target.name]: "Precipitation values can't be negative",
+      });
+    } else if (isNaN(parseFloat(event.target.value))) {
+      setMonthValues({
+        ...monthValues,
+        [event.target.name]: event.target.value,
+      });
+      setMonthErrors({
+        ...monthErrors,
+        [event.target.name]: true,
+      });
+      setMonthErrorMessage({
+        ...monthErrorMessage,
+        [event.target.name]: "This value must be a number",
+      });
+    } else {
+      setMonthErrors({
+        ...monthErrors,
+        [event.target.name]: false,
+      });
+      setMonthErrorMessage({
+        ...monthErrorMessage,
+        [event.target.name]: "",
+      });
+      setMonthValues({
+        ...monthValues,
+        [event.target.name]: event.target.value,
+      });
+    }
   };
 
   const submitHandler = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
-    props.handleSubmitButton(gcmName, Object.values(monthValues));
+    props.handleSubmitButton(
+      gcmNameValue,
+      Object.values(monthValues).map((value) => {
+        return parseFloat(value);
+      }),
+    );
   };
 
   return (
@@ -52,134 +162,165 @@ const FormsMonth: React.FC<{
             variant="outlined"
             type="text"
             label="GCM name"
-            value={gcmName}
-            onChange={changeGcmNameHandler}
+            value={gcmNameValue}
+            onChange={gcmNameOnChangeHandler}
+            onBlur={gcmNameOnBlurHandler}
+            error={gcmNameError}
+            helperText={gcmNameError && "A GCM name is required"}
             required
           />
         </div>
         <TextField
           className="input-field"
           variant="outlined"
-          type="number"
           label="Jan"
           name="jan"
+          onChange={monthValuesOnChangeHandler}
+          onBlur={monthValuesOnBlurHandler}
           value={monthValues.jan}
-          onChange={changeMonthValueHandler}
+          error={monthErrors.jan}
+          helperText={monthErrorMessage.jan}
           required
         />
         <TextField
           className="input-field"
           variant="outlined"
-          type="number"
           label="Feb"
           name="feb"
+          onChange={monthValuesOnChangeHandler}
+          onBlur={monthValuesOnBlurHandler}
           value={monthValues.feb}
-          onChange={changeMonthValueHandler}
+          error={monthErrors.feb}
+          helperText={monthErrorMessage.feb}
           required
         />
         <TextField
           className="input-field"
           variant="outlined"
-          type="number"
           label="Mar"
           name="mar"
+          onChange={monthValuesOnChangeHandler}
+          onBlur={monthValuesOnBlurHandler}
           value={monthValues.mar}
-          onChange={changeMonthValueHandler}
+          error={monthErrors.mar}
+          helperText={monthErrorMessage.mar}
           required
         />
         <TextField
           className="input-field"
           variant="outlined"
-          type="number"
           label="Apr"
           name="apr"
+          onChange={monthValuesOnChangeHandler}
+          onBlur={monthValuesOnBlurHandler}
           value={monthValues.apr}
-          onChange={changeMonthValueHandler}
+          error={monthErrors.apr}
+          helperText={monthErrorMessage.apr}
           required
         />
         <TextField
           className="input-field"
           variant="outlined"
-          type="number"
           label="May"
           name="may"
+          onChange={monthValuesOnChangeHandler}
+          onBlur={monthValuesOnBlurHandler}
           value={monthValues.may}
-          onChange={changeMonthValueHandler}
+          error={monthErrors.may}
+          helperText={monthErrorMessage.may}
           required
         />
         <TextField
           className="input-field"
           variant="outlined"
-          type="number"
           label="Jun"
           name="jun"
+          onChange={monthValuesOnChangeHandler}
+          onBlur={monthValuesOnBlurHandler}
           value={monthValues.jun}
-          onChange={changeMonthValueHandler}
+          error={monthErrors.jun}
+          helperText={monthErrorMessage.jun}
           required
         />
         <TextField
           className="input-field"
           variant="outlined"
-          type="number"
           label="Jul"
           name="jul"
+          onChange={monthValuesOnChangeHandler}
+          onBlur={monthValuesOnBlurHandler}
           value={monthValues.jul}
-          onChange={changeMonthValueHandler}
+          error={monthErrors.jul}
+          helperText={monthErrorMessage.jul}
           required
         />
         <TextField
           className="input-field"
           variant="outlined"
-          type="number"
           label="Aug"
           name="aug"
+          onChange={monthValuesOnChangeHandler}
+          onBlur={monthValuesOnBlurHandler}
           value={monthValues.aug}
-          onChange={changeMonthValueHandler}
+          error={monthErrors.aug}
+          helperText={monthErrorMessage.aug}
           required
         />
         <TextField
           className="input-field"
           variant="outlined"
-          type="number"
           label="Sep"
           name="sep"
+          onChange={monthValuesOnChangeHandler}
+          onBlur={monthValuesOnBlurHandler}
           value={monthValues.sep}
-          onChange={changeMonthValueHandler}
+          error={monthErrors.sep}
+          helperText={monthErrorMessage.sep}
           required
         />
         <TextField
           className="input-field"
           variant="outlined"
-          type="number"
           label="Oct"
           name="oct"
+          onChange={monthValuesOnChangeHandler}
+          onBlur={monthValuesOnBlurHandler}
           value={monthValues.oct}
-          onChange={changeMonthValueHandler}
+          error={monthErrors.oct}
+          helperText={monthErrorMessage.oct}
           required
         />
         <TextField
           className="input-field"
           variant="outlined"
-          type="number"
           label="Nov"
           name="nov"
+          onChange={monthValuesOnChangeHandler}
+          onBlur={monthValuesOnBlurHandler}
           value={monthValues.nov}
-          onChange={changeMonthValueHandler}
+          error={monthErrors.nov}
+          helperText={monthErrorMessage.nov}
           required
         />
         <TextField
           className="input-field"
           variant="outlined"
-          type="number"
           label="Dec"
           name="dec"
+          onChange={monthValuesOnChangeHandler}
+          onBlur={monthValuesOnBlurHandler}
           value={monthValues.dec}
-          onChange={changeMonthValueHandler}
+          error={monthErrors.dec}
+          helperText={monthErrorMessage.dec}
           required
         />
         <div className="button-container">
           <div className="submit-button">
-            <Button onClick={submitHandler} variant="contained">
+            <Button
+              onClick={submitHandler}
+              variant="contained"
+              disabled={submitButtonDisabled}
+            >
               ADD NEW POINT
             </Button>
           </div>
