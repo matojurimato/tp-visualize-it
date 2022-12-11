@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Backdrop, Button } from "@mui/material";
 import ChartView from "./components/ChartView/ChartView";
 import ParameterController from "./components/ParameterController/ParameterController";
 import TableView from "./components/TableView/TableView";
@@ -69,11 +69,13 @@ const App = () => {
           </div>
           <div className="content-container">
             <ViewSelector />
-            <div className="data-card">
-              <Card>
+            <div className="data-container">
+              <Card className="data-card">
                 {loading && (
-                  <div className="loading">
-                    <CircularProgress />
+                  <div className="loading-overlay">
+                    <div className="loading-spinner">
+                      <CircularProgress />
+                    </div>
                   </div>
                 )}
                 {selectedPage === "mavg" ? (

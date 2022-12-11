@@ -11,6 +11,7 @@ import {
 import { useRecoilValue } from "recoil";
 import { selectedTypeState } from "../../store/atoms";
 import FilterPointsByParameters from "../../services/FilterPointsByParameters";
+import "./ChartView.css";
 
 const ChartView: React.FC<{
   fetchedData: TPoint[];
@@ -32,12 +33,8 @@ const ChartView: React.FC<{
   ) {
     return (
       <div className="chart-container">
-        <ResponsiveContainer width="90%" height={585}>
-          <BarChart
-            data={fetchedAndManualData}
-            stackOffset={"sign"}
-            margin={{ top: 50, bottom: 110, left: 60 }}
-          >
+        <ResponsiveContainer width="90%" height={545}>
+          <BarChart data={fetchedAndManualData} stackOffset={"sign"}>
             <XAxis
               dataKey="gcm"
               stroke="rgba(0, 0, 0, 0.87)"
@@ -46,8 +43,9 @@ const ChartView: React.FC<{
               dy={30}
               dx={30}
               padding={{ right: 30 }}
+              height={110}
             >
-              <Label value="GCM name" position="insideBottom" offset={-80} />
+              <Label value="GCM name" position="insideBottom" />
             </XAxis>
             <YAxis stroke="rgba(0, 0, 0, 0.87)">
               <Label

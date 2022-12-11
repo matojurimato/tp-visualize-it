@@ -48,7 +48,7 @@ const TableView: React.FC<{
                       return (
                         <StyledTableCell key={index} align="center">
                           {isTemperatureSelected
-                            ? `${month} [°C]`
+                            ? `${month} [\u00B0C]`
                             : `${month} [mm]`}
                         </StyledTableCell>
                       );
