@@ -1,4 +1,4 @@
-import { Backdrop, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import ChartView from "./components/ChartView/ChartView";
 import ParameterController from "./components/ParameterController/ParameterController";
 import TableView from "./components/TableView/TableView";

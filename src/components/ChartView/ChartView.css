@@ -2,3 +2,10 @@
   padding-top: 30px;
   padding-left: 60px;
 }
+
+.chart-container-mobile {
+  width: 80%;
+  padding-top: 20px;
+  padding-left: 15px;
+  padding-bottom: 20px;
+}
