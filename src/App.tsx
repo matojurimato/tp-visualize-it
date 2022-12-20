@@ -91,6 +91,7 @@ const App = () => {
                 )}
               </Card>
             </div>
+            <div className="right-margin" />
           </div>
         </div>
       </div>

@@ -39,24 +39,20 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 25px;
-  margin-left: 50px;
-  margin-right: 50px;
+  margin: 0 50px 25px 50px;
 }
 
 .content-container {
   display: flex;
-  width: 100%;
 }
 
-.data-container {
-  margin-right: 50px;
+.right-margin {
+  width: 50px;
 }
 
 .data-card {
   position: relative;
   min-height: 608px;
-  margin-right: 50px;
   width: 1100px;
 }
 
@@ -89,19 +85,16 @@
 
 @media screen and (max-width: 1000px) {
   .main-content,
-  .data-container,
   .data-card {
     width: 100%;
   }
-
-  .recharts-cartesian-axis-ticks {
-    font-size: 12px;
+  .data-container {
+    width: calc(100% - 100px);
   }
 }
 
 @media screen and (max-width: 880px) {
   .controls-container {
-    display: flex;
     flex-direction: column;
   }
 
@@ -115,5 +108,9 @@
 
   .new-point-button {
     margin-top: 25px;
+  }
+
+  .recharts-cartesian-axis-ticks {
+    font-size: 12px;
   }
 }

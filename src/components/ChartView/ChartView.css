@@ -1,11 +1,7 @@
 .chart-container {
-  padding-top: 30px;
-  padding-left: 60px;
+  padding: 30px 60px 30px 20px;
 }
 
 .chart-container-mobile {
-  width: 80%;
-  padding-top: 20px;
-  padding-left: 15px;
-  padding-bottom: 20px;
+  padding: 20px 25px 20px 15px;
 }

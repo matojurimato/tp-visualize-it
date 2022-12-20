@@ -34,23 +34,23 @@ const HorizontalChart: React.FC<{
 
   return (
     <div className="chart-container">
-      <ResponsiveContainer width="90%" height={545}>
+      <ResponsiveContainer width="100%" height={550}>
         <BarChart data={props.data} stackOffset={"sign"}>
           <XAxis
             dataKey="gcm"
             stroke="rgba(0, 0, 0, 0.87)"
-            height={110}
+            height={90}
             interval={0}
             tick={XAxisBottomTick}
           >
-            <Label value="GCM name" position="insideBottom" />
+            <Label value="GCM name" position="insideBottom" dy={8} />
           </XAxis>
           <YAxis stroke="rgba(0, 0, 0, 0.87)">
             <Label
               value={props.yAxisAndValueName}
               position="insideLeft"
               angle={-90}
-              offset={10}
+              offset={4}
               dy={60}
             />
           </YAxis>
