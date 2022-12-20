@@ -1,11 +1,11 @@
+import { useRecoilState } from "recoil";
+import { selectedCountryState } from "../../store/atoms";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { useRecoilState } from "recoil";
 import { AVAILABLE_COUNTRIES } from "../../models/constants";
 import { TAvailableCountries } from "../../models/types";
-import { selectedCountryState } from "../../store/atoms";
 import "./ParameterController.css";
 
 const SelectCountry = () => {

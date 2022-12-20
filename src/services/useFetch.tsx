@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { TPoint } from "../models/types";
-import AveragePoints from "./AveragePoints";
-import { AVAILABLE_COUNTRIES } from "../models/constants";
 import originalFetch from "isomorphic-fetch";
 import fetchBuilder from "fetch-retry-ts";
+import AveragePoints from "./AveragePoints";
+import { TPoint } from "../models/types";
+import { AVAILABLE_COUNTRIES } from "../models/constants";
 
 const useFetch = (url: string, selectedPage: string) => {
   const [fetchedData, setFetchedData] = useState<TPoint[]>([]);

@@ -1,11 +1,11 @@
+import { useRecoilState } from "recoil";
+import { selectedTypeState } from "../../store/atoms";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { useRecoilState } from "recoil";
 import { AVAILABLE_TYPES } from "../../models/constants";
 import { TAvailableTypes } from "../../models/types";
-import { selectedTypeState } from "../../store/atoms";
 import "./ParameterController.css";
 
 const SelectType = () => {

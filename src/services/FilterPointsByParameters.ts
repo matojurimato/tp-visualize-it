@@ -1,10 +1,17 @@
+/**
+ * This function receives an array of _TPoint_s and returns only those
+ * _TPoint_s whose country, period and type properties correspond to those in
+ * the respective _selectedCountry_, _selectedPeriod_ and _selectedType_ recoil
+ * states.
+ */
+
 import { useRecoilValue } from "recoil";
-import { TPoint } from "../models/types";
 import {
   selectedCountryState,
   selectedTypeState,
   selectedPeriodState,
 } from "../store/atoms";
+import { TPoint } from "../models/types";
 
 const FilterPointsByParameters = (points: TPoint[]) => {
   const selectedCountry = useRecoilValue(selectedCountryState);

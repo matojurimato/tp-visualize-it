@@ -1,15 +1,15 @@
+import { useRecoilValue } from "recoil";
+import { selectedTypeState } from "../../store/atoms";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { useRecoilValue } from "recoil";
-import { MONTH_NAMES } from "../../models/constants";
-import { TPoint } from "../../models/types";
 import FilterPointsByParameters from "../../services/FilterPointsByParameters";
-import formatTableValue from "../../services/formatTableValue";
-import { selectedTypeState } from "../../store/atoms";
+import FormatTableValue from "../../services/FormatTableValue";
+import { TPoint } from "../../models/types";
+import { MONTH_NAMES } from "../../models/constants";
 import {
   StyledBoxOverflow,
   StyledBoxTable,
@@ -62,7 +62,7 @@ const TableView: React.FC<{
                       {point.monthVals!.map((value, index) => {
                         return (
                           <TableCell align="right" key={index}>
-                            {formatTableValue(value)}
+                            {FormatTableValue(value)}
                           </TableCell>
                         );
                       })}

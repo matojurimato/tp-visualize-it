@@ -1,11 +1,11 @@
+import { useRecoilState } from "recoil";
+import { selectedPeriodState } from "../../store/atoms";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { useRecoilState } from "recoil";
 import { AVAILABLE_PERIODS } from "../../models/constants";
 import { TAvailablePeriods } from "../../models/types";
-import { selectedPeriodState } from "../../store/atoms";
 import "./ParameterController.css";
 
 const SelectPeriod = () => {

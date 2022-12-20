@@ -1,4 +1,3 @@
-import { TPoint } from "../../models/types";
 import {
   BarChart,
   Bar,
@@ -8,6 +7,7 @@ import {
   Label,
   ResponsiveContainer,
 } from "recharts";
+import { TPoint } from "../../models/types";
 import "./ChartView.css";
 
 const HorizontalChart: React.FC<{

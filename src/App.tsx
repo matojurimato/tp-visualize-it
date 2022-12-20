@@ -1,23 +1,23 @@
-import { Button } from "@mui/material";
-import ChartView from "./components/ChartView/ChartView";
-import ParameterController from "./components/ParameterController/ParameterController";
-import TableView from "./components/TableView/TableView";
-import ViewSelector from "./components/ViewSelector/ViewSelector";
-import "./App.css";
+import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 import {
   selectedPageState,
   selectedCountryState,
   selectedPeriodState,
   selectedTypeState,
 } from "./store/atoms";
-import { useRecoilValue } from "recoil";
-import { useEffect, useState } from "react";
-import useFetch from "./services/useFetch";
-import { BASE_URL } from "./models/constants";
+import { Button } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import Card from "@mui/material/Card";
+import ParameterController from "./components/ParameterController/ParameterController";
+import ViewSelector from "./components/ViewSelector/ViewSelector";
+import ChartView from "./components/ChartView/ChartView";
+import TableView from "./components/TableView/TableView";
 import NewPointModal from "./components/NewPointModal/NewPointModal";
+import useFetch from "./services/useFetch";
+import { BASE_URL } from "./models/constants";
 import { TPoint } from "./models/types";
+import "./App.css";
 
 const App = () => {
   const [url, setUrl] = useState<string>("");

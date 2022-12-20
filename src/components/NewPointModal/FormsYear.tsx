@@ -1,9 +1,9 @@
-import { Button } from "@mui/material";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/system/Box";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { selectedTypeState } from "../../store/atoms";
+import { Button } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/system/Box";
 import "./NewPointModal.css";
 
 const FormsYear: React.FC<{

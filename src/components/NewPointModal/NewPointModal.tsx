@@ -1,17 +1,17 @@
-import { Backdrop, Box, Modal, Fade } from "@mui/material";
-import FormsMonth from "./FormsMonth";
-import FormsYear from "./FormsYear";
 import { useRecoilValue } from "recoil";
-import "./NewPointModal.css";
-import { TPoint } from "../../models/types";
 import {
   selectedCountryState,
   selectedPageState,
   selectedPeriodState,
   selectedTypeState,
 } from "../../store/atoms";
+import { TPoint } from "../../models/types";
+import { Backdrop, Box, Modal, Fade } from "@mui/material";
+import FormsMonth from "./FormsMonth";
+import FormsYear from "./FormsYear";
 import RoundByTwoDecimals from "../../services/RoundByTwoDecimals";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import "./NewPointModal.css";
 
 const NewPointModal: React.FC<{
   manualMonthEntries: TPoint[];

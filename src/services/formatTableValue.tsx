@@ -4,7 +4,7 @@
  * places
  */
 
-const formatTableValue = (number: number) => {
+const FormatTableValue = (number: number) => {
   let offsetSpaces = 0;
   const maxDecimalSpaces = 2;
   const characterWidthInPx = 8;
@@ -28,4 +28,4 @@ const formatTableValue = (number: number) => {
   }
 };
 
-export default formatTableValue;
+export default FormatTableValue;

@@ -1,3 +1,10 @@
+/**
+ * This function averages out however many _TPoint_ arrays it receives.
+ * It is used for the special case of Yugoslavia, where the data and the ISO
+ * code for this former country don't exist, but the app is supposed to show
+ * the average data of countries that used to form it.
+ */
+
 import { TPoint } from "../models/types";
 
 const averageValuesInArray = (values: number[]) => {

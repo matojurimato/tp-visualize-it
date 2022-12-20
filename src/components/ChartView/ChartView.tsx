@@ -1,12 +1,11 @@
-import { TPoint } from "../../models/types";
-
+import { useMediaQuery } from "react-responsive";
 import { useRecoilValue } from "recoil";
 import { selectedTypeState } from "../../store/atoms";
+import { TPoint } from "../../models/types";
 import FilterPointsByParameters from "../../services/FilterPointsByParameters";
-import "./ChartView.css";
-import { useMediaQuery } from "react-responsive";
 import VerticalChart from "./VerticalChart";
 import HorizontalChart from "./HorizontalChart";
+import "./ChartView.css";
 
 const ChartView: React.FC<{
   fetchedData: TPoint[];
